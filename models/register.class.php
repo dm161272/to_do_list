@@ -6,6 +6,7 @@ private $userName;
 private $rawPassword;
 private $encryptPassword;
 public $result;
+public $msg;
 //public $success;
 
 private $db = "db/users.json";
@@ -43,8 +44,10 @@ public function addUser() {
         array_push($this->usersArray, $this->newUser);
         $json = json_encode($this->usersArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json);
-    }
+
+    $this->msg = "User successfully registered!";
     
+}
     $this->displayResult();
 }
 
@@ -53,20 +56,20 @@ public function addUser() {
 
 
 private function usernameExists() {
-    $checker=true;
+    $checker=false;
     //$this->usersArray = json_decode(file_get_contents($this->db), true);
     foreach($this->usersArray as $user) {
             if($this->userName == $user['username']) {
      $this->msg = $this->userName ." - username is already in use!";
             $checker = true;}  
-    else
-    {
-    $checker = false;
-    $this->msg = "User successfully registered!";
+        else
+        {
+        $checker = false;
+        
+        }
+    }   echo $checker;
+        return $checker;
     }
-}
-    return $checker;
-}
 
 private function displayResult(){
     echo "<h3 class='text-xl text-center text-white font-bold'>$this->msg</h3>"; 
