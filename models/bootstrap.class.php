@@ -13,10 +13,11 @@ public function __construct() {
     if(file_exists($file)) {
      require $file;
     } else {
-      require 'controllers/ErrorController.php';
+     require 'controllers/ErrorController.php';
      $controller = new ErrorController();
      return false;
     }
+    
     $controller = new (ucfirst($url[0]).'Controller');
     //$controller->index();
 

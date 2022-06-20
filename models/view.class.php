@@ -1,8 +1,5 @@
 <?php
   class View {
-   public function __construct() {
-    //echo '*View class*<br />';
-   }
 
     public function render($name, $noInclude = false, $header = false) {
         if($noInclude == true) {

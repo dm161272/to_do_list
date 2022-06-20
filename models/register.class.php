@@ -41,7 +41,7 @@ $this->newUser = [
 public function addUser() {
 
     if(!$this->usernameExists()) {
-        array_push($this->usersArray, $this->newUser);
+        $this->usersArray[]=($this->newUser);
         $json = json_encode($this->usersArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json);
 

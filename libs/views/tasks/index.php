@@ -36,45 +36,62 @@ $ob='';
 <?php 
     if(isset($_POST['addtask'])){
         $taskname=filter_var(trim($_POST['taskname']), FILTER_SANITIZE_STRING);
-        $nt=new Task($user, $taskname);
-        $_SESSION['object']=$nt;
-        $nt->addTask();
+        $_SESSION['object']=new Task($user, $taskname);;
+        $_SESSION['object']->addTask();
     }
+    
 ?>
     <div class="w-3/4 my-auto mx-auto">
     <div class="flex flex-wrap w-full text-white font-bold border rounded">
         
-<?php       
+    <?php       
       if(file_exists($tr="db/tasks." . $user . ".json")) {
           
       $tasksArray=json_decode(file_get_contents($tr), true);
       
-      foreach($tasksArray as $task): 
-       
-      $taskname=$task['taskname'];
-?> 
-          <form class="w-2/12 text-center my-auto" action="" method="POST" id="form2">
-          <input type="hidden" name="marktask" value="<?php echo $taskname ?>">
-          <button class="bg-green-500 hover:bg-green-700 font-bold py-2 px-3 rounded focus:outline-none
-                focus:shadow-outline my-2 mx-5">Done</button>
+      foreach($tasksArray as $i=>$task):
 
-          </form> <form class="w-2/12 text-center my-auto" action="" method="POST" id="form2">
-          <input type="hidden" name="unmarktask" value="<?php echo $taskname ?>">
-          <button class="bg-red-500 hover:bg-red-700 font-bold py-2 px-3 rounded focus:outline-none
-                focus:shadow-outline my-2 mx-5">Not done</button>
+      $date=$task['date']; 
+      $time=$task['time'];
+      $taskname=$task['taskname'];
+     
+    ?> 
+          <form class="w-4/12 text-center my-auto" action="" method="POST">
+          <input type="hidden" name="marktask" value="<?php echo $taskname ?>">
+
+        <?php
+
+        
+           if($task['completed']) {$statusButton = 'Completed'; $buttonColor = "bg-green-500"; $buttonHover = " hover:bg-green-700 ";} 
+           if(!$task['completed']) {$statusButton = 'Not completed'; $buttonColor = "bg-red-500"; $buttonHover = " hover:bg-red-700 ";} 
+          
+          
+        ?>
+
+          <button class="<?php echo $buttonColor, $buttonHover?>font-bold py-2 px-3 rounded focus:outline-none
+           focus:shadow-outline my-2 mx-5">
+          <?php echo $statusButton ?>
+          </button>
           </form>
+
           <div class="mx-auto w-6/12 text-left my-auto">
-          <?php echo $taskname . ": "; ?>
+          <?php echo $date . " : " . $time; ?>
+          <?php echo $taskname . ": "; 
+         
+          
+          ?>
+
+
       
-          <?php if($task['completed']) {echo "task completed";} else {echo "task not completed";}?>
+         
           </div>
           <form class="w-2/12 text-left" action="" method="POST">
           <input type="hidden" name="deltask" value="<?php echo $taskname?>">
           <button class="bg-red-500 hover:bg-red-700 font-bold py-2 px-3 rounded focus:outline-none
-                focus:shadow-outline my-2 mx-5">Delete</button>
+                focus:shadow-outline my-2 mx-5">Delete task</button>
           </form>
           
-        <?php endforeach;}?>
+        <?php endforeach;} ?>
 
     </div>
     </div>
@@ -88,20 +105,15 @@ $ob='';
      
     }
 
-      if(isset($_POST['unmarktask'])){
-        $ts=($_POST['unmarktask']);
-        $ob=($_SESSION['object']);
-
-        $status=($ob->unmarkTask($ts));
-        $_SESSION['mark']=$status;
-    }
 
       if(isset($_POST['marktask'])){
         $ts=($_POST['marktask']);
         $ob=($_SESSION['object']);
-
-        $status=($ob->markTask($ts));
-        $_SESSION['mark']=$status;
+        var_dump($ob);
+        echo "<br>****<br>";
+        $tn=($ob->markTask($ts));
+        $_SESSION['taskname']=$tn;
+        
     }
 
   
