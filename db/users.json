@@ -1,3 +1,10 @@
 [
-  
-  ]
+    {
+        "username": "777",
+        "password": "$2y$10$8\/21UloGV5ZCxXi1wWDpu.4zda4yBhCpboA1YDJZmpU5qNAsDd\/4e"
+    },
+    {
+        "username": "999",
+        "password": "$2y$10$wXl5MgfFBcHyRJQcs5KCLuv\/R30uVsWakSCVs95g.obI772f1mxQK"
+    }
+]
