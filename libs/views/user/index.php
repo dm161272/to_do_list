@@ -42,9 +42,7 @@
                 focus:shadow-outline" type="submit" value="Sign Up" name="signup">
             
             </div>
-          <!--  <div  class="text-white text-sm font-bold text-right my-5">
-                <a class="href="signout">Sign out</a>
-            </div> -->
+        
 </div>
         </form>
           
@@ -55,8 +53,8 @@
         if (!isset($_SESSION)) session_start();
         $username = filter_var(trim($_POST['username']), FILTER_SANITIZE_STRING);
         $pwd = filter_var(trim($_POST['pwd']), FILTER_SANITIZE_STRING);
-        $nu = new LoginUser($username, $pwd);
-        if ($nu->login()) {
+        $newuser = new User($username, $pwd);
+        if ($newuser->login($pwd)) {
         header('location: tasks');
         }
         else 
@@ -68,10 +66,13 @@
     if(isset($_POST['signup'])){
         $username = filter_var(trim($_POST['username']), FILTER_SANITIZE_STRING);
         $pwd = filter_var(trim($_POST['pwd']), FILTER_SANITIZE_STRING);
-        $ru = new RegisterUser($username, $pwd);
-        $ru->addUser();
+        $newuser = new User($username, $pwd);
+        $newuser->addUser();
     }
    
+    if(isset($_POST['signout'])){
+       User::signOut();
+    }
 
 ?>
 

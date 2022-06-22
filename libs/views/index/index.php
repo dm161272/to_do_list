@@ -1,5 +1,5 @@
 <?php
-header ('location: signup');
+header ('location: user');
 ?>
 
 <!DOCTYPE html>

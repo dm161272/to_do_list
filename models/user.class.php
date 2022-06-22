@@ -1,6 +1,6 @@
 <?php
 
-class RegisterUser {
+class User {
 
 private $userName;
 private $rawPassword;
@@ -29,9 +29,6 @@ $this->newUser = [
     'username' => $this->userName,
     'password' => $this->encryptPassword
     ];
-
-   // $this->addUser();
-
 }
 
 
@@ -52,8 +49,18 @@ public function addUser() {
 }
 
 
-//support func 
+//user login func
+public function login($pwd){
+    foreach($this->usersArray as $user) {
+    if(($this->userName==$user['username']) && (password_verify($pwd, $user['password'])))
+    {
+    $_SESSION['user'] = $this->userName;
+    return true;
+    }
+}
+}
 
+//support func 
 
 private function usernameExists() {
     $checker=false;
@@ -74,6 +81,12 @@ private function usernameExists() {
 private function displayResult(){
     echo "<h3 class='text-xl text-center text-white font-bold'>$this->msg</h3>"; 
     echo "<br  />";
+}
+
+public static function signOut(){
+$_SESSION = array();
+session_destroy();
+header('location: user');
 }
 
 }
