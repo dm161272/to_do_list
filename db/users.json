@@ -26,5 +26,9 @@
     {
         "username": "99",
         "password": "$2y$10$CeVRidp4pbsvgC2.N74yNeG6ZY2AX7v5\/96XYhs4nnX8s928Bsm\/2"
+    },
+    {
+        "username": "0000",
+        "password": "$2y$10$mcOdhQckJJYzI2HY\/QI4y.p8Wnx8dRXA5tyCGuRtSXcBbw7GQBCge"
     }
 ]
