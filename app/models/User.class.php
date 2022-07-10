@@ -9,21 +9,24 @@ public $result;
 public $msg;
 //public $success;
 
-private $db=ROOT_PATH . "/db/users.json";
+private $db=ROOT_PATH . "/db/";
 private $usersArray;
 private $newUser; 
 
 public function __construct($userName, $userPassword) {
 $this->userName=$userName;
 $this->rawPassword=$userPassword;
-$this->encryptPassword=password_hash($this->rawPassword, PASSWORD_DEFAULT);
-if(!file_exists($this->db))
+$this->encryptPassword=password_hash($this->rawPassword, PASSWORD_BCRYPT);
+if(!is_dir($this->db)) {
+    mkdir($this->db, 0777);
+}
+if(!file_exists($this->db . "users.json"))
 { 
      $this->usersArray=[];
 }
 else
 {
-    $this->usersArray=json_decode(file_get_contents($this->db), true);
+    $this->usersArray=json_decode(file_get_contents($this->db . "users.json"), true);
 }
 $this->newUser=[
     'username' => $this->userName,
@@ -39,7 +42,7 @@ public function addUser() {
     if(!$this->usernameExists()) {
         $this->usersArray[]=$this->newUser;
         $json=json_encode($this->usersArray, JSON_PRETTY_PRINT);
-        file_put_contents($this->db, $json);
+        file_put_contents($this->db . "users.json", $json);
 
     $_SESSION['msg']="User successfully registered!";    
     }

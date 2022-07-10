@@ -23,18 +23,15 @@ function __construct ($username, $taskName, $completed = false) {
     {
         $this->tasksArray = json_decode(file_get_contents($this->db), true);
     }
-
     $this->newTask = [
         'date' => $this->date,
         'taskname' => $this->taskName,
         'completed' => $this->completed
-        ];
-    
+        ];  
     }
 
 
-public function addTask() {
-    
+public function addTask() {   
     if(!$this->tasknameExists()) {
         $this->tasksArray[]=$this->newTask;
         $json = json_encode($this->tasksArray, JSON_PRETTY_PRINT);
@@ -47,8 +44,7 @@ public function addTask() {
 }
 
 
-public function delTask($taskname) {
-        
+public function delTask($taskname) {     
         $task = $taskname;
         $data = file_get_contents($this->db);
         $json = json_decode($data, true);
@@ -56,9 +52,7 @@ public function delTask($taskname) {
         if($i['taskname'] === $task){
             unset($json[$j]);
         }
-   
         }
-     
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
 }
@@ -70,7 +64,7 @@ public function markTask($taskname) {
         $json = json_decode($data, true);
         foreach($json as $j => $i) {
         if($i['taskname'] === $taskname){
-            $json[$j]['completed']= !$json[$j]['completed'];
+            $json[$j]['completed'] = !$json[$j]['completed'];
         }
         }
         $json = json_encode($json, JSON_PRETTY_PRINT);
@@ -83,7 +77,6 @@ public function markTask($taskname) {
 //support func 
 
 public function tasknameExists() {
-
          foreach($this->tasksArray as $task) {
         if($this->taskName === $task['taskname']) {
         return true;
