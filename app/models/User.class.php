@@ -18,10 +18,8 @@ $this->userName=$userName;
 $this->rawPassword=$userPassword;
 $this->encryptPassword=password_hash($this->rawPassword, PASSWORD_DEFAULT);
 if(!file_exists($this->db))
-{
-   $this->usersArray=[];
-   //mkdir($this->db, 0777, $recursive = true);
-   //chown($this->db, "tim");
+{ 
+     $this->usersArray=[];
 }
 else
 {
@@ -41,8 +39,6 @@ public function addUser() {
     if(!$this->usernameExists()) {
         $this->usersArray[]=$this->newUser;
         $json=json_encode($this->usersArray, JSON_PRETTY_PRINT);
-       // echo $this->db;
-        //mkdir($this->db, $permissions = 0777, $recursive = true);
         file_put_contents($this->db, $json);
 
     $_SESSION['msg']="User successfully registered!";    
