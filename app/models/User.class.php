@@ -1,4 +1,5 @@
 <?php
+$_SESSION['check'] = false;
 
 class User {
 
@@ -7,7 +8,7 @@ private $rawPassword;
 private $encryptPassword;
 public $result;
 public $msg;
-//public $success;
+
 
 private $db=ROOT_PATH . "/db/";
 private $usersArray;
@@ -44,7 +45,10 @@ public function addUser() {
         $json=json_encode($this->usersArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db . "users.json", $json);
 
-    $_SESSION['msg']="User successfully registered!";    
+    $_SESSION['msg']="User successfully registered!";
+    $_SESSION['check'] = true;
+    $_SESSION['user']=$this->userName;    
+    header("location: tasks");
     }
     else {
         $_SESSION['msg']="Username is already in use!";
@@ -67,7 +71,7 @@ public function login($pwd){
 public function signOut(){
     $_SESSION=array();
     session_destroy();
-    header('location: login');
+    header('location: index');
     }
 
 
