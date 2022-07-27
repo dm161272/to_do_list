@@ -9,7 +9,7 @@ private $newTask;
 private $date;
 
 
-function __construct ($username, $taskName, $completed = false) {
+function __construct ($username, $taskName, $completed = '0') {
     $this->date = date('d-M-Y h:i:s');
     $this->username = $username;
     $this->db = ROOT_PATH . "/db/tasks." . $username . ".json";
@@ -61,19 +61,36 @@ public function delTask($taskname) {
 
 
 public function markTask($taskname) {
+
         $data = file_get_contents($this->db);
         $json = json_decode($data, true);
+
         foreach($json as $j => $i) {
-        if($i['taskname'] === $taskname){
-            $json[$j]['completed'] = !$json[$j]['completed'];
+        if ($i['taskname'] === $taskname) {
+
+            switch ($json[$j]['completed']) {
+
+            case 0:
+            $json[$j]['completed'] = '1';
+            break;
+
+            case 1:
+            $json[$j]['completed'] = '2';
+            break;
+            
+            default:
+            $json[$j]['completed'] = '0';
+
         }
-        }
+      }   
+    }
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
 
         return $ret=true;
         
-    }
+    
+}
 
 //support func 
 
