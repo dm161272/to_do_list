@@ -17,6 +17,13 @@ class Router
 			$controller = null;
 			$action = null;
 			
+			$link = '<h3 class="text-3xl text-teal-300 font-bold text-center"><br><br>(Error 404)<br><br>THIS PAGE DOES NOT EXISTS!<br><br>
+			<a class="text-2xl text-teal-500" href="./tasks">click here to return</a></h3>';
+			if(!isset($_SESSION['user'])) {
+			$link = '<h3 class="text-3xl text-teal-300 font-bold text-center"><br><br>(Error 404)<br><br>THIS PAGE DOES NOT EXISTS!<br><br>
+			<a class="text-2xl text-teal-500" href="./">click here to return</a></h3>';
+			}
+			
 			// tries to find a simple route
 			$routeFound = $this->_getSimpleRoute($routes, $controller, $action);
 			//var_dump($routeFound);
@@ -27,10 +34,9 @@ class Router
 			}
 			
 			// no route found, throw an exception to run the error controller
-			if (!$routeFound || $controller == null || $action == null) {
+			if  (!$routeFound || $controller == null || $action == null) {
 				//throw new Exception('no route added for ' . $_SERVER['REQUEST_URI']);
-				throw new Exception('<h3 class="text-3xl text-teal-300 font-bold text-center"><br><br>(Error 404)<br><br>THIS PAGE DOES NOT EXISTS!<br><br>
-				<a class="text-2xl text-teal-500" href="./">click here to return to login page</a></h3>');
+				throw new Exception($link);
 				
 			}
 			else {
