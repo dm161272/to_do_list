@@ -34,5 +34,21 @@
     }
   
 
+    public function tasksArray() {
+
+      if(file_exists($this->tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
+          
+      $this->tasksArray=json_decode(file_get_contents($this->tr), true);
+      //var_dump($this->tasksArray);
+      return $this->tasksArray;
+
+
+      }
+      else {
+      return false;
+      }
+    
+  }
+
   }
 ?>
