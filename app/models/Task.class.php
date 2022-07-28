@@ -89,9 +89,6 @@ public function markTask($taskname) {
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
 
-        return $ret=true;
-        
-    
 }
 
 //support func 
