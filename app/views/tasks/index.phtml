@@ -1,7 +1,8 @@
 
 <?php
-$task = new TasksController();
 $user= $_SESSION['user'];
+
+$task = new TasksController;
 $taskname='';
 
 if($_SESSION['check']) $_SESSION['msg']="User successfully registered!";
@@ -56,7 +57,8 @@ if($_SESSION['check']) $_SESSION['msg']="User successfully registered!";
 <div>   
     <div class="w-3/4 my-auto mx-auto">
     
-<?php       
+<?php   
+  
       if($task->tasksArray()){
       foreach($task->tasksArray() as $task): 
             $taskname = $task['taskname'];
