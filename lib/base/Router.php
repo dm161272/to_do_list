@@ -18,10 +18,10 @@ class Router
 			$action = null;
 			
 			$link = '<h3 class="text-3xl text-teal-300 font-bold text-center"><br><br>(Error 404)<br><br>THIS PAGE DOES NOT EXISTS!<br><br>
-			<a class="text-2xl text-teal-500" href="./tasks">click here to return</a></h3>';
+			<a class="text-2xl text-teal-999" href="./tasks">click here to return</a></h3>';
 			if(!isset($_SESSION['user'])) {
 			$link = '<h3 class="text-3xl text-teal-300 font-bold text-center"><br><br>(Error 404)<br><br>THIS PAGE DOES NOT EXISTS!<br><br>
-			<a class="text-2xl text-teal-500" href="./">click here to return</a></h3>';
+			<a class="text-2xl text-teal-999" href="./">click here to return</a></h3>';
 			}
 			
 			// tries to find a simple route

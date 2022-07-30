@@ -45,7 +45,7 @@ public function addUser() {
         $json=json_encode($this->usersArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db . "users.json", $json);
 
-    $_SESSION['msg']="User successfully registered!";
+    //$_SESSION['msg']="User successfully registered!";
     $_SESSION['check'] = true;
     $_SESSION['user']=$this->userName;    
     header("location: tasks");
