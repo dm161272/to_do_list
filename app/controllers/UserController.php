@@ -3,7 +3,7 @@
   class UserController extends Controller {
  
   
-  public function loginAction(){
+  public function indexAction(){
 
   if(isset($_POST['signin'])){
       if (!isset($_SESSION)) session_start();
