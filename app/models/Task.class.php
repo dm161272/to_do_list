@@ -7,12 +7,13 @@ private $db;
 private $tasksArray;
 private $newTask; 
 private $date;
+private $endDate;
 
-
-function __construct ($username, $taskName, $completed = '0') {
-    $this->date = date('d-M-Y h:i:s');
+function __construct ($endDate, $username, $taskName, $completed = '0') {
+    $this->date = date('Y-m-d');
+    $this->endDate = $endDate;
     $this->username = $username;
-    $this->db = ROOT_PATH . "/db/tasks." . $username . ".json";
+    $this->db = ROOT_PATH . "/db/tasks." . $this->username . ".json";
     $this->taskName = $taskName;
     $this->completed = $completed;
     if(!file_exists($this->db))
@@ -25,6 +26,7 @@ function __construct ($username, $taskName, $completed = '0') {
     }
     $this->newTask = [
         'date' => $this->date,
+        'endDate' => $this->endDate,
         'taskname' => $this->taskName,
         'completed' => $this->completed
         ];  
@@ -87,9 +89,6 @@ public function markTask($taskname) {
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
 
-        return $ret=true;
-        
-    
 }
 
 //support func 
@@ -102,18 +101,5 @@ public function tasknameExists() {
          }
     }
 
-public static function tasksArray() {
 
-        if(file_exists($tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
-            
-        $tasksArray=json_decode(file_get_contents($tr), true);
-  
-        return $tasksArray;
-  
-        }
-        else {
-        return false;
-        }
-      
-    }
 }
