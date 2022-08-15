@@ -35,6 +35,11 @@ function __construct ($endDate, $username, $taskName, $completed = '0') {
 
 public function addTask() {   
     $_SESSION['check']=false;
+    if($this->taskDate() && !$this->tasknameExists()) {
+
+        $_SESSION['msg']="Task end date can not be before today!"; 
+    }
+    else {
     if(!$this->tasknameExists()) {
         $this->tasksArray[]=$this->newTask;
         $json = json_encode($this->tasksArray, JSON_PRETTY_PRINT);
@@ -45,7 +50,7 @@ public function addTask() {
     $_SESSION['msg']="This task already exists!";
     }
 }
-
+}
 
 public function delTask($taskname) {     
         $task = $taskname;
@@ -101,5 +106,13 @@ public function tasknameExists() {
          }
     }
 
+public function taskDate() {
+       if($this->endDate < $this->date) {
+       return true;
+        }
+    }
 
 }
+
+
+
