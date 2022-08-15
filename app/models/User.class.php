@@ -1,5 +1,4 @@
 <?php
-$_SESSION['check'] = false;
 
 class User {
 
@@ -8,26 +7,23 @@ private $rawPassword;
 private $encryptPassword;
 public $result;
 public $msg;
+//public $success;
 
-
-private $db=ROOT_PATH . "/db/";
+private $db=ROOT_PATH . "/db/users.json";
 private $usersArray;
 private $newUser; 
 
 public function __construct($userName, $userPassword) {
 $this->userName=$userName;
 $this->rawPassword=$userPassword;
-$this->encryptPassword=password_hash($this->rawPassword, PASSWORD_BCRYPT);
-if(!is_dir($this->db)) {
-    mkdir($this->db, 0777);
-}
-if(!file_exists($this->db . "users.json"))
+$this->encryptPassword=password_hash($this->rawPassword, PASSWORD_DEFAULT);
+if(!file_exists($this->db))
 { 
      $this->usersArray=[];
 }
 else
 {
-    $this->usersArray=json_decode(file_get_contents($this->db . "users.json"), true);
+    $this->usersArray=json_decode(file_get_contents($this->db), true);
 }
 $this->newUser=[
     'username' => $this->userName,
@@ -43,12 +39,9 @@ public function addUser() {
     if(!$this->usernameExists()) {
         $this->usersArray[]=$this->newUser;
         $json=json_encode($this->usersArray, JSON_PRETTY_PRINT);
-        file_put_contents($this->db . "users.json", $json);
+        file_put_contents($this->db, $json);
 
-    $_SESSION['msg']="User successfully registered!";
-    $_SESSION['check'] = true;
-    $_SESSION['user']=$this->userName;    
-    header("location: tasks");
+    $_SESSION['msg']="User successfully registered!";    
     }
     else {
         $_SESSION['msg']="Username is already in use!";
@@ -71,7 +64,7 @@ public function login($pwd){
 public function signOut(){
     $_SESSION=array();
     session_destroy();
-    header('location: index');
+    header('location: login');
     }
 
 

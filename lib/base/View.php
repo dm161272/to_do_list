@@ -36,9 +36,9 @@ class View
 		
 		// includes the view script
 		//echo(ROOT_PATH . '/app/views/' . $viewScript) . "*-*-*from view.php*-*-*<br  />";
-		include(ROOT_PATH . '/app/views//layouts/header.phtml');
+		include(ROOT_PATH . '/app/views//layouts/header.php');
 		include(ROOT_PATH . '/app/views/' . $viewScript);
-		include(ROOT_PATH . '/app/views/layouts/footer.phtml');
+		include(ROOT_PATH . '/app/views/layouts/footer.php');
 		
 		// returns the content of the output buffer
 		$this->_content = ob_get_clean();
