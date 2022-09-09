@@ -48,9 +48,9 @@ class View
 	/**
 	 * Fetches the content of the current view script
 	 */
-	public function content()
+	public function content($param=NULL)
 	{
-		return $this->_content;
+		return [$this->_content, $param];
 	}
 	
 	/**

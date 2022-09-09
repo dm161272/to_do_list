@@ -37,7 +37,7 @@ public function addTask() {
     $_SESSION['check']=false;
     if($this->taskDate() && !$this->tasknameExists()) {
 
-        $_SESSION['msg']="Task end date can not be before today!"; 
+        $_SESSION['msg']="Ending date cannot be in the past!"; 
     }
     else {
     if(!$this->tasknameExists()) {
@@ -69,13 +69,13 @@ public function delTask($taskname) {
 
 public function markTask($taskname) {
 
-        $data = file_get_contents($this->db);
-        $json = json_decode($data, true);
+        $json = file_get_contents($this->db);
+        $json = json_decode($json, true);
 
         foreach($json as $j => $i) {
         if ($i['taskname'] === $taskname) {
 
-            switch ($json[$j]['completed']) {
+            switch ($json[$j]['completed']) { 
 
             case 0:
             $json[$j]['completed'] = '1';
@@ -99,7 +99,7 @@ public function markTask($taskname) {
 //support func 
 
 public function tasknameExists() {
-         foreach($this->tasksArray as $task) {
+        foreach($this->tasksArray as $task) {
         if($this->taskName === $task['taskname']) {
         return true;
          }

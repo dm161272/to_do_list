@@ -20,7 +20,6 @@ class Controller
 	public function init()
 	{
 		$this->view = new View();
-		
 		$this->view->settings->action = $this->_action;
 		$this->view->settings->controller = strtolower(str_replace('Controller', '', get_class($this)));
 	}
