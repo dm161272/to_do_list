@@ -35,26 +35,19 @@ function __construct ($endDate, $username, $taskName, $completed = '0') {
 
 public function addTask() {   
     $_SESSION['check']=false;
-<<<<<<< HEAD
-    if(!$this->tasknameExists() && !$this->checkDate()) {
-=======
-    if($this->taskDate() && !$this->tasknameExists()) {
-
-        $_SESSION['msg']="Ending date cannot be in the past!"; 
+  
+    if (!$this->checkDate()) {
+        $_SESSION['msg']="Starting date can not be in the past!";
     }
-    else {
-    if(!$this->tasknameExists()) {
->>>>>>> master
+    else if(!$this->tasknameExists()) {
         $this->tasksArray[]=$this->newTask;
         $json = json_encode($this->tasksArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json);
     } 
     else
     {
-     ($this->tasknameExists()) ? $_SESSION['msg']="This task already exists!"
-     :$_SESSION['msg']="Starting date can not be in the past!";
+     $_SESSION['msg']="This task already exists!";
     }
-}
 }
 
 public function delTask($taskname) {     
@@ -69,8 +62,6 @@ public function delTask($taskname) {
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
     }
-
-
 
 public function markTask($taskname) {
 
@@ -98,40 +89,22 @@ public function markTask($taskname) {
     }
         $json = json_encode($json, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json); 
-
 }
 
 //support func 
-
 public function tasknameExists() {
-<<<<<<< HEAD
-         foreach($this->tasksArray as $task) {
-        return ($this->taskName === $task['taskname']) ? true
-        : false;
-         }
-    }
-
-    public function checkDate() {
-       return ($this->date >= $this->endDate) ? true
-       : false;
-        
-   }
-=======
-        foreach($this->tasksArray as $task) {
+        foreach($this->tasksArray as $task)  
         if($this->taskName === $task['taskname']) {
         return true;
          }
-         }
     }
 
-public function taskDate() {
-       if($this->endDate < $this->date) {
-       return true;
-        }
-    }
->>>>>>> master
-
+public function checkDate() {
+       return ($this->date <= $this->endDate) ? true
+       : false;     
+   }    
 }
+
 
 
 

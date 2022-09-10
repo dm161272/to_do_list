@@ -9,7 +9,6 @@
 
     }
 
-
     public function markTask(){
 
     if(isset($_POST['addtask'])){
@@ -35,11 +34,11 @@
     }
   }
   
-    public function tasksArray() {
+    public function tArray() {
 
     if(file_exists($this->tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
       $this->tasksArray=json_decode(file_get_contents($this->tr), true);
-<<<<<<< HEAD:app/controllers/TaskController.php
+
     return $this->tasksArray;
     
     }
@@ -50,14 +49,6 @@
     
   }
 
-
 }
-=======
-      return $this->tasksArray;
-      }
-      else {
-      return false;
-      }
-  }
-  }
->>>>>>> master:app/controllers/TasksController.php
+
+

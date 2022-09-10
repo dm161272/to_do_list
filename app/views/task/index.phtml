@@ -55,15 +55,11 @@ if($_SESSION['check']) $_SESSION['msg']="User successfully registered!";?>
 
     <div class="w-3/4 my-auto mx-auto">
     
-<<<<<<< HEAD:app/views/task/index.phtml
 <?php   
  
-=======
-<?php    
->>>>>>> master:app/views/tasks/index.phtml
-      if($task->tasksArray()){
+      if($task->tArray()){
             
-      foreach($task->tasksArray() as $task): 
+      foreach($task->tArray() as $task): 
             $taskname = $task['taskname'];
          
       switch ($task['completed']){  
