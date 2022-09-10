@@ -28,18 +28,18 @@
     }
 
     if(isset($_POST['marktask'])){
-      $taskname=$_POST['marktask'];
-      $this->nt = new Task('', $_SESSION['user'], $taskname);
-      $this->nt->markTask($taskname);
+      $this->taskname=$_POST['marktask'];
+      $this->nt = new Task('', $_SESSION['user'], $this->taskname);
+      $this->nt->markTask($this->taskname);
 
     }
   }
   
-
     public function tasksArray() {
 
     if(file_exists($this->tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
       $this->tasksArray=json_decode(file_get_contents($this->tr), true);
+<<<<<<< HEAD:app/controllers/TaskController.php
     return $this->tasksArray;
     
     }
@@ -52,3 +52,12 @@
 
 
 }
+=======
+      return $this->tasksArray;
+      }
+      else {
+      return false;
+      }
+  }
+  }
+>>>>>>> master:app/controllers/TasksController.php

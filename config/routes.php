@@ -10,5 +10,11 @@
  * '/calendar' => 'calendar#index'
  */
 $routes = array(
+<<<<<<< HEAD
 	'/' => 'user#index', '/index' => 'user#index',  '/task' => 'task#index'
+=======
+	'/' => 'user#index', 
+	'/index' => 'user#index',
+	'/task' => 'tasks#index'
+>>>>>>> master
 );

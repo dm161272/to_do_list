@@ -35,7 +35,16 @@ function __construct ($endDate, $username, $taskName, $completed = '0') {
 
 public function addTask() {   
     $_SESSION['check']=false;
+<<<<<<< HEAD
     if(!$this->tasknameExists() && !$this->checkDate()) {
+=======
+    if($this->taskDate() && !$this->tasknameExists()) {
+
+        $_SESSION['msg']="Ending date cannot be in the past!"; 
+    }
+    else {
+    if(!$this->tasknameExists()) {
+>>>>>>> master
         $this->tasksArray[]=$this->newTask;
         $json = json_encode($this->tasksArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json);
@@ -46,7 +55,7 @@ public function addTask() {
      :$_SESSION['msg']="Starting date can not be in the past!";
     }
 }
-
+}
 
 public function delTask($taskname) {     
         $task = $taskname;
@@ -65,13 +74,13 @@ public function delTask($taskname) {
 
 public function markTask($taskname) {
 
-        $data = file_get_contents($this->db);
-        $json = json_decode($data, true);
+        $json = file_get_contents($this->db);
+        $json = json_decode($json, true);
 
         foreach($json as $j => $i) {
         if ($i['taskname'] === $taskname) {
 
-            switch ($json[$j]['completed']) {
+            switch ($json[$j]['completed']) { 
 
             case 0:
             $json[$j]['completed'] = '1';
@@ -95,6 +104,7 @@ public function markTask($taskname) {
 //support func 
 
 public function tasknameExists() {
+<<<<<<< HEAD
          foreach($this->tasksArray as $task) {
         return ($this->taskName === $task['taskname']) ? true
         : false;
@@ -106,5 +116,22 @@ public function tasknameExists() {
        : false;
         
    }
+=======
+        foreach($this->tasksArray as $task) {
+        if($this->taskName === $task['taskname']) {
+        return true;
+         }
+         }
+    }
+
+public function taskDate() {
+       if($this->endDate < $this->date) {
+       return true;
+        }
+    }
+>>>>>>> master
 
 }
+
+
+
