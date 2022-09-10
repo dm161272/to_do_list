@@ -35,14 +35,15 @@ function __construct ($endDate, $username, $taskName, $completed = '0') {
 
 public function addTask() {   
     $_SESSION['check']=false;
-    if(!$this->tasknameExists()) {
+    if(!$this->tasknameExists() && !$this->checkDate()) {
         $this->tasksArray[]=$this->newTask;
         $json = json_encode($this->tasksArray, JSON_PRETTY_PRINT);
         file_put_contents($this->db, $json);
     } 
     else
     {
-    $_SESSION['msg']="This task already exists!";
+     ($this->tasknameExists()) ? $_SESSION['msg']="This task already exists!"
+     :$_SESSION['msg']="Starting date can not be in the past!";
     }
 }
 
@@ -95,11 +96,15 @@ public function markTask($taskname) {
 
 public function tasknameExists() {
          foreach($this->tasksArray as $task) {
-        if($this->taskName === $task['taskname']) {
-        return true;
-         }
+        return ($this->taskName === $task['taskname']) ? true
+        : false;
          }
     }
 
+    public function checkDate() {
+       return ($this->date >= $this->endDate) ? true
+       : false;
+        
+   }
 
 }

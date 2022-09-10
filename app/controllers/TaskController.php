@@ -1,9 +1,16 @@
 <?php
-  class TasksController extends Controller {
+  class TaskController extends Controller {
     
     private $nt;
    
-     public function indexAction(){
+    public function indexAction(){
+
+      return $this->markTask();
+
+    }
+
+
+    public function markTask(){
 
     if(isset($_POST['addtask'])){
       $taskname=filter_var(trim($_POST['taskname']));
@@ -26,20 +33,22 @@
       $this->nt->markTask($taskname);
 
     }
-
   }
   
 
     public function tasksArray() {
 
-      if(file_exists($this->tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
+    if(file_exists($this->tr=ROOT_PATH . "/db/tasks." . $_SESSION['user'] . ".json")) {
       $this->tasksArray=json_decode(file_get_contents($this->tr), true);
-      return $this->tasksArray;
-      }
-      else {
-      return false;
-      }
+    return $this->tasksArray;
+    
+    }
+    else 
+    {
+    return false;
+    }
     
   }
 
-  }
+
+}
